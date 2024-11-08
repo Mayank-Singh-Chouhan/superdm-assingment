@@ -222,7 +222,8 @@ const CloseTemplate = () => {
     ]
 
     return (
-        <section className='h-full px-10'>
+        <section className='h-full gap-3 flex flex-col'>
+            <div className='h-16 w-full rounded-xl shrink-0 border border-fs-border'></div>
             <Table columns={column} data={data} />
         </section>
     )

@@ -42,7 +42,7 @@ const WorkspaceTemplate = () => {
                     )
                 })}
             </nav>
-            <main className={"flex-1 p-3 rounded-xl overflow-auto scroll-hidden bg-fs-background"}>
+            <main className={"flex-1 p-3 rounded-xl flex flex-col overflow-auto bg-fs-background"}>
                 {TAB_DATA[activeIndex].panel}
             </main>
         </div>

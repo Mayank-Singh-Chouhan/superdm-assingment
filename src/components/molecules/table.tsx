@@ -13,9 +13,9 @@ interface TableProps<T> {
 
 const Table = <T,>({ columns, data }: TableProps<T>) => {
   return (
-    <div className="overflow-x-auto scroll-hidden">
-      <table className="min-w-full divide-y-2">
-        <thead>
+    <div className="overflow-x-auto scroll-hidden rounded-xl">
+      <table className="min-w-full">
+        <thead className="sticky backdrop-blur-md bg-fs-border top-0 z-50">
           <tr>
             {columns.map((column, index) => (
               <th
@@ -28,9 +28,9 @@ const Table = <T,>({ columns, data }: TableProps<T>) => {
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-fs-divider-gray">
+        <tbody className="divide-y divide-fs-border">
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={rowIndex} className='hover:bg-fs-border cursor-pointer'>
               {columns.map((column, colIndex) => (
                 <td
                   key={colIndex}
