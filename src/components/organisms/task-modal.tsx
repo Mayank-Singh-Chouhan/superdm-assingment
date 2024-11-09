@@ -3,6 +3,7 @@ import Modal from '../molecules/modal';
 import ActionConfirmationModal from './action-confirmation-modal';
 import { ITask } from '@/models/interfaces';
 import { TaskModalAction } from '@/models/enums';
+import { formatDateString } from '@/lib/utils';
 
 interface ITaskModal {
     isOpen: boolean;
@@ -33,8 +34,8 @@ const TaskModal = ({isOpen, setIsOpen, task, modalActions} : ITaskModal) => {
                 <div className='flex flex-col text-[12px] gap-1'>
                     <p className='text-white'><strong>LABELS:</strong> {task?.labels.join(", ")}</p>
                     <p className='text-white'><strong>PRIORITY:</strong> {task?.priority}</p>
-                    <p className='text-white'><strong>CREATED:</strong> {task?.created_at}</p>
-                    <p className='text-white'><strong>UPDATED:</strong> {task?.updated_at}</p>
+                    <p className='text-white'><strong>CREATED:</strong> {task?.created_at ? formatDateString(task?.created_at as string) : "--"}</p>
+                    <p className='text-white'><strong>UPDATED:</strong> {task?.updated_at ? formatDateString(task?.updated_at as string) : "--"}</p>
                 </div>
                     
 

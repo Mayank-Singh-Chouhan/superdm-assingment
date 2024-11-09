@@ -1,3 +1,4 @@
+import { formatDateString } from "@/lib/utils"
 import { ITask } from "@/models/interfaces"
 
 export const TASK_COLUMN = [
@@ -18,11 +19,17 @@ export const TASK_COLUMN = [
     },
     {
         header: "Created At",
-        accessor: "created_at" as keyof ITask
+        accessor: "created_at" as keyof ITask,
+        render: (value: ITask) => {
+            return formatDateString(value.created_at)
+        }
     },
     {
         header: "Updated At",
-        accessor: "updated_at" as keyof ITask 
+        accessor: "updated_at" as keyof ITask,
+        render: (value: ITask) => {
+            return formatDateString(value.updated_at)
+        }
     },
     {
         header: "Priority",
