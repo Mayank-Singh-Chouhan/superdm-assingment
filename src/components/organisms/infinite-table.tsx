@@ -4,6 +4,7 @@ import { TASK_COLUMN } from '@/data/table-column-data';
 import { ITask } from '@/models/interfaces';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
+import TableSkeleton from '../molecules/table-skeleton';
 
 export interface IInfiniteTable<T> {
     queryKey: string;
@@ -54,15 +55,42 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
 
     }, [fetchNextPage, inView])
 
-    if (isLoading) {
-        return <>Loading...</>
-    }
+
+
     return (
         <div className="overflow-x-auto scroll-hidden rounded-xl">
-            <Table handleRowClick={handleRowClick} columns={TASK_COLUMN} data={ROW_DATA} />
-            <div ref={ref} className='min-h-3 bg-red-500'>
-                {isFetchingNextPage && <>Loading...</>}
-            </div>
+            {
+                isLoading ? 
+                <TableSkeleton /> : 
+                <>
+                    <Table handleRowClick={handleRowClick} columns={TASK_COLUMN} data={ROW_DATA} />
+
+                    {/* Skeleton */}
+                    <table ref={ref} className="min-w-full border-t border-t-fs-border min-h-1">
+                        {
+                            isFetchingNextPage && 
+                            <tbody className="divide-y divide-fs-border">
+                                {[...Array(2)].map((_, index) => (
+                                    <tr
+                                        key={index}
+                                    >
+                                    {[...Array(6)].map((_, colIndex) => (
+                                        <td
+                                        key={colIndex}
+                                        className="px-6 py-4 whitespace-nowrap text-white text-[14px] font-normal"
+                                        >
+                                        <span className='inline-block h-2 bg-fs-border rounded-2xl w-full'></span>
+                                        </td>
+                                    ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        }
+                    </table>
+                
+                </>
+            }
+
         </div>
     )
 }

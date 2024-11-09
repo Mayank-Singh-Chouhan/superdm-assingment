@@ -32,7 +32,7 @@ const CloseTemplate = () => {
     <section className='h-full gap-3 flex flex-col'>
       <div className='h-16 w-full rounded-xl shrink-0 border border-fs-border'></div>
       <InfiniteTable queryKey={'close'} data={CLOSED_TASK_DATA} handleRowClick={handleRowClick} />
-      <TaskModal modalActions={modalActions} task={focusTask as ITask} isOpen={isModalOpen} setIsOpen={setModalOpen} />
+      {focusTask && <TaskModal modalActions={modalActions} task={focusTask as ITask} isOpen={isModalOpen} setIsOpen={setModalOpen} />}
     </section>
   )
 }

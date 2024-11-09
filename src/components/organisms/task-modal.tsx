@@ -10,15 +10,16 @@ import { changeStatus } from '@/store/slices/workspace-slice';
 interface ITaskModal {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    task?: ITask;
+    task: ITask;
     modalActions: (action: TaskModalAction) => void;
 }
 
 const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
+
     const dispatch = useDispatch();
     
     const [isModalOpen, setModalOpen] = useState(false);
-    const [selectedStatus, setSelectedStatus] = useState<TaskStatus>();
+    const [selectedStatus, setSelectedStatus] = useState<TaskStatus>(task?.status as TaskStatus);
     const [newStatus, setNewStatus] = useState<TaskStatus | null>(null); 
     
 
@@ -26,8 +27,10 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
     const handleKeyDown = (e: KeyboardEvent) => {
         if (!isModalOpen) {
             if (e.key === 'ArrowRight') {
+                e.preventDefault();
                 modalActions(TaskModalAction.NEXT);
             } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
                 modalActions(TaskModalAction.PREV);
             }
         }
@@ -49,7 +52,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
         setModalOpen(false);
     };
     
-
+    
     return (
         <Modal onKeyDown={handleKeyDown} isOpen={isOpen} onClose={() => setIsOpen(false)} >
             <article className='bg-fs-background p-6 rounded-lg'>

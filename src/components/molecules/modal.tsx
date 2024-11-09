@@ -1,4 +1,3 @@
-// components/Modal.tsx
 import { ReactNode, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import FocusLock from 'react-focus-lock';
