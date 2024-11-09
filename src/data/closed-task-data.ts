@@ -2,7 +2,7 @@ import { ITask } from "@/models/interfaces";
 
 export const CLOSED_TASK_DATA: Array<ITask> = [
     {
-        id: 1,
+        id: 821374,
         name: "Complete User Authentication",
         labels: ["Feature request", "Backend"],
         status: "Closed",
@@ -11,7 +11,7 @@ export const CLOSED_TASK_DATA: Array<ITask> = [
         priority: "Medium"
     },
     {
-        id: 2,
+        id: 548926,
         name: "Resolve Payment Issue",
         labels: ["Bug fix", "Critical"],
         status: "Closed",
@@ -20,7 +20,7 @@ export const CLOSED_TASK_DATA: Array<ITask> = [
         priority: "High"
     },
     {
-        id: 3,
+        id: 193048,
         name: "Redesign Landing Page",
         labels: ["UI", "Enhancement"],
         status: "Closed",
@@ -29,7 +29,7 @@ export const CLOSED_TASK_DATA: Array<ITask> = [
         priority: "Medium"
     },
     {
-        id: 4,
+        id: 739201,
         name: "Setup Continuous Integration",
         labels: ["Feature request", "Backend"],
         status: "Closed",

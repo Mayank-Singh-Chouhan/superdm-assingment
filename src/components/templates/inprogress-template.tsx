@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import Table from '../molecules/table'
-import { TASK_COLUMN } from '@/data/table-column-data'
 import { ITask } from '@/models/interfaces'
 import TaskModal from '../organisms/task-modal'
 import { TaskModalAction } from '@/models/enums'
 import { useAppSelector } from '@/store/hooks'
+import InfiniteTable from '../organisms/infinite-table'
 
 const InProgressTemplate = () => {
   const IN_PROGRESS_TASK_DATA = useAppSelector(state => state.workspaces.inprogress);
@@ -32,7 +31,7 @@ const InProgressTemplate = () => {
   return (
     <section className='h-full gap-3 flex flex-col'>
       <div className='h-16 w-full rounded-xl shrink-0 border border-fs-border'></div>
-      <Table handleRowClick={handleRowClick} columns={TASK_COLUMN} data={IN_PROGRESS_TASK_DATA} />
+      <InfiniteTable queryKey={'inprogress'} data={IN_PROGRESS_TASK_DATA} handleRowClick={handleRowClick} />
       <TaskModal modalActions={modalActions} task={focusTask} isOpen={isModalOpen} setIsOpen={setModalOpen} />
     </section>
   )

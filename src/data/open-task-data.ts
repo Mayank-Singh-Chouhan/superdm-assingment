@@ -1,8 +1,8 @@
 import { ITask } from "@/models/interfaces";
 
-export const OPEN_TASK_DATA : Array<ITask> = [
+export const OPEN_TASK_DATA: Array<ITask> = [
     {
-        id: 1,
+        id: 783291,
         name: "Update API Documentation",
         labels: ["Feature request", "Backend"],
         status: "Open",
@@ -11,7 +11,7 @@ export const OPEN_TASK_DATA : Array<ITask> = [
         priority: "Medium"
     },
     {
-        id: 2,
+        id: 462915,
         name: "Fix Login Bug",
         labels: ["Bug fix", "Critical"],
         status: "Open",
@@ -20,19 +20,21 @@ export const OPEN_TASK_DATA : Array<ITask> = [
         priority: "High"
     },
     {
-        id: 3,
+        id: 290184,
         name: "Improve Dashboard UI",
         labels: ["UI", "Enhancement"],
         status: "Open",
         created_at: "2024-02-10T09:00:00.000Z",
-        updated_at: "2024-03-01T10:00:00.000Z", priority: "Medium"
+        updated_at: "2024-03-01T10:00:00.000Z",
+        priority: "Medium"
     },
     {
-        id: 4,
+        id: 574392,
         name: "Integrate Payment Gateway",
         labels: ["Feature request", "Backend"],
         status: "Open",
         created_at: "2024-03-15T11:45:00.000Z",
-        updated_at: "2024-03-20T08:30:00.000Z", priority: "Urgent"
+        updated_at: "2024-03-20T08:30:00.000Z",
+        priority: "Urgent"
     }
-]
+];

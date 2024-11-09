@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import Table from '../molecules/table'
-import { TASK_COLUMN } from '@/data/table-column-data';
 import TaskModal from '../organisms/task-modal';
 import { ITask } from '@/models/interfaces';
 import { TaskModalAction } from '@/models/enums';
 import { useAppSelector } from '@/store/hooks';
+import InfiniteTable from '../organisms/infinite-table';
 
 const CloseTemplate = () => {
   const CLOSED_TASK_DATA = useAppSelector(state => state.workspaces.close);
@@ -32,7 +31,7 @@ const CloseTemplate = () => {
   return (
     <section className='h-full gap-3 flex flex-col'>
       <div className='h-16 w-full rounded-xl shrink-0 border border-fs-border'></div>
-      <Table handleRowClick={handleRowClick} columns={TASK_COLUMN} data={CLOSED_TASK_DATA} />
+      <InfiniteTable queryKey={'close'} data={CLOSED_TASK_DATA} handleRowClick={handleRowClick} />
       <TaskModal modalActions={modalActions} task={focusTask as ITask} isOpen={isModalOpen} setIsOpen={setModalOpen} />
     </section>
   )
