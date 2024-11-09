@@ -1,12 +1,14 @@
 import { TASK_COLUMN } from '@/data/table-column-data'
 import React, { useState } from 'react'
 import Table from '../molecules/table'
-import { OPEN_TASK_DATA } from '@/data/open-task-data'
 import { ITask } from '@/models/interfaces'
 import TaskModal from '../organisms/task-modal'
 import { TaskModalAction } from '@/models/enums'
+import { useAppSelector } from '@/store/hooks'
 
 const OpenTemplate = () => {
+  const OPEN_TASK_DATA = useAppSelector(state => state.workspaces.open)
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [focusTask, setFocusTask] = useState<ITask>()
   const [focusTaskIdx, setFocusTaskIdx] = useState<number>(-1);

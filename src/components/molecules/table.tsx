@@ -121,15 +121,12 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
                 ))}
               </tr>
             ))}
-            <tr>
-              {/* Loader */}
-              <td ref={ref} className='my-3 min-h-2 bg-red-600'>
-                {isFetchingNextPage && <>Loading...</>}
-              </td>
-            </tr>
           </tbody>
         </table>
       </FocusLock>
+      <div ref={ref} className='min-h-3 bg-red-500'>
+        {isFetchingNextPage && <>Loading...</>}
+      </div>
     </div>
   );
 };
