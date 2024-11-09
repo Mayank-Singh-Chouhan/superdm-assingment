@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import React, { useRef, useEffect, useMemo } from 'react';
 import FocusLock from 'react-focus-lock';
+import { useInView } from 'react-intersection-observer';
 
 interface Identifiable { id: number | string; }
 interface Column<T extends Identifiable> {
@@ -33,6 +35,53 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
     }
   };
 
+
+  const PAGE_SIZE = 10;
+  const { ref, inView } = useInView()
+
+
+  const fetchMockData = ({ pageParam = 0 }) => {
+    // Simulate fetching data by slicing the mock data array
+    const start = pageParam * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+
+    const rowData = data.slice(start, end);
+
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(rowData), 1000); // Simulate network delay
+    });
+  };
+
+  const { data: MOCK_DATA, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryFn: fetchMockData,
+    queryKey: ['mockData'],
+    initialPageParam: 0,
+    getNextPageParam: (_, pages) => {
+      if (pages.flat().length < data.length) {
+        return pages.length; // Next page index
+      }
+      return undefined; // No more pages
+    }
+  })
+
+  const ROW_DATA = useMemo(
+    () => MOCK_DATA?.pages.flatMap(row => row),
+    [MOCK_DATA]
+  ) as T[]
+
+  // Whenever the Intersection Occurs Fetch new Data
+  useEffect(() => {
+
+    if (inView) {
+      fetchNextPage()
+    }
+
+  }, [fetchNextPage, inView])
+
+  if (isLoading) {
+    return <>Loading...</>
+  }
+
   return (
     <div className="overflow-x-auto scroll-hidden rounded-xl">
       <FocusLock>
@@ -51,7 +100,7 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
             </tr>
           </thead>
           <tbody className="divide-y divide-fs-border">
-            {data.map((row, index) => (
+            {ROW_DATA.map((row, index) => (
               <tr
                 onClick={() => handleRowClick(row, index)}
                 key={row.id} tabIndex={0}
@@ -72,6 +121,12 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
                 ))}
               </tr>
             ))}
+            <tr>
+              {/* Loader */}
+              <td ref={ref} className='my-3 min-h-2 bg-red-600'>
+                {isFetchingNextPage && <>Loading...</>}
+              </td>
+            </tr>
           </tbody>
         </table>
       </FocusLock>

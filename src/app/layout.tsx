@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ReduxProvider from "./_providers/redux-provider/redux-provider";
 
 export const metadata: Metadata = {
   title: "superdm-assingment",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased flex items-center justify-center h-screen w-screen bg-[url(/images/bg.jpg)]`}>
-        {children}
+        <ReduxProvider>
+          {children}
+        </ReduxProvider>
       </body>
     </html>
   );
