@@ -14,7 +14,8 @@ export interface IInfiniteTable<T> {
 
 const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>) => {
     const PAGE_SIZE = 10;
-    const { ref, inView } = useInView()
+    const { ref, inView } = useInView();
+    // const queryClient = useQueryClient();
 
 
     const fetchMockData = ({ pageParam = 0 }) => {
@@ -29,7 +30,7 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
         });
     };
 
-    const { data: MOCK_DATA, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    const { data: MOCK_DATA, isLoading, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery({
         queryFn: fetchMockData,
         queryKey: [queryKey],
         initialPageParam: 0,
@@ -55,7 +56,11 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
 
     }, [fetchNextPage, inView])
 
-
+    useEffect(() => {
+        refetch();
+        // queryClient.invalidateQueries();
+        console.log("reftch")
+    }, [data])
 
     return (
         <div className="overflow-x-auto scroll-hidden rounded-xl">
