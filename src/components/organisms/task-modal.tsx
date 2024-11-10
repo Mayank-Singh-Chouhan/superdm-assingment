@@ -115,7 +115,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
                         <div className='max-w-full flex-1 scroll-hidden bg-fs-background rounded-lg p-2 overflow-y-auto'>
                             {comments.map((comment) => {
                                 return (
-                                    <p key={comment.content}><strong className='underline'>{comment.name_of_sender}:</strong> {comment.content}</p>
+                                    <p key={comment.content + comment.name_of_sender}><strong className='underline'>{comment.name_of_sender}:</strong> {comment.content}</p>
                                 )
                             })}
                         </div>
