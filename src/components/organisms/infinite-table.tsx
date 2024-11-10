@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import Table from '../molecules/table';
 import { TASK_COLUMN } from '@/data/table-column-data';
 import { ITask } from '@/models/interfaces';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import TableSkeleton from '../molecules/table-skeleton';
 
@@ -15,7 +15,7 @@ export interface IInfiniteTable<T> {
 const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>) => {
     const PAGE_SIZE = 10;
     const { ref, inView } = useInView();
-    // const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
 
     const fetchMockData = ({ pageParam = 0 }) => {
@@ -30,7 +30,7 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
         });
     };
 
-    const { data: MOCK_DATA, isLoading, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery({
+    const { data: MOCK_DATA, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryFn: fetchMockData,
         queryKey: [queryKey],
         initialPageParam: 0,
@@ -57,10 +57,8 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
     }, [fetchNextPage, inView])
 
     useEffect(() => {
-        refetch();
-        // queryClient.invalidateQueries();
-        console.log("reftch")
-    }, [data])
+        queryClient.resetQueries({ queryKey: [queryKey] });
+    }, [queryClient, queryKey, data]);
 
     return (
         <div className="overflow-x-auto scroll-hidden rounded-xl">

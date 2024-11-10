@@ -66,6 +66,9 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
 
     const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if(comment.length === 0) return;
+
         const newComment: ITaskComment = {
             task_id: task.id,
             content: comment,
@@ -102,16 +105,19 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
                         <option value={TaskStatus.CLOSED}>Closed</option>
                     </select>
                     <p className='font-bold mt-2'>Comments:</p>
-                    <div className='bg-[#4e4f50] h-40 rounded-lg p-3'>
+                    <div className='flex flex-col bg-[#4e4f50] h-56 rounded-lg p-3'>
                         <form onSubmit={handleAddComment} className='flex gap-2 w-full mb-3'>
-                            <input value={comment} onChange={(e) => setComment(e.target.value)} placeholder='Add Comment Here' type='text' className='p-2 text-black w-full rounded-sm' />
+                            <input value={comment} onChange={(e) => setComment(e.target.value)} placeholder='Add Comment Here' type='text' className='p-2 text-white bg-fs-border w-full rounded-md placeholder:text-white/60' />
                             <button type='submit' className='bg-fs-background p-2 rounded-sm shrink-0'>Add</button>
                         </form>
-                        {comments.map((comment) => {
-                            return (
-                                <p key={comment.content}><strong>{comment.name_of_sender}:</strong> {comment.content}</p>
-                            )
-                        })}
+
+                        <div className='max-w-full flex-1 scroll-hidden bg-fs-background rounded-lg p-2 overflow-y-auto'>
+                            {comments.map((comment) => {
+                                return (
+                                    <p key={comment.content}><strong className='underline'>{comment.name_of_sender}:</strong> {comment.content}</p>
+                                )
+                            })}
+                        </div>
                     </div>
 
                 </div>

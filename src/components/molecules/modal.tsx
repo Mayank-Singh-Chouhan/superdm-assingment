@@ -38,13 +38,13 @@ export default function Modal({ isOpen, onClose, children, onKeyDown }: ModalPro
       className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
       <FocusLock>
-        <div className="bg-fs-border backdrop-blur-lg relative p-8 rounded-xl shadow-lg w-96 lg:min-w-[32rem] lg:max-w-full overflow-y-auto">
+        <div className="bg-fs-border backdrop-blur-lg relative p-8 rounded-xl shadow-lg w-96 lg:min-w-[40rem] lg:max-w-full overflow-y-auto">
           {children}
           <button
             onClick={onClose}
             className="absolute top-2 right-2 rounded bg-fs-background hover:bg-red-500"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="m291-240-51-51 189-189-189-189 51-51 189 189 189-189 51 51-189 189 189 189-51 51-189-189-189 189Z"/></svg>
           </button>
         </div>
       </FocusLock>
