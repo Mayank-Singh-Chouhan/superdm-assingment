@@ -36,7 +36,7 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
   return (
     <FocusLock>
       <table className="min-w-full">
-        <thead className="sticky backdrop-blur-md bg-fs-border top-0 z-50">
+        <thead className="sticky backdrop-blur-md rounded-xl bg-fs-border top-0 z-50">
           <tr>
             {columns.map((column, index) => (
               <th

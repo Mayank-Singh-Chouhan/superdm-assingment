@@ -18,13 +18,13 @@ interface ITaskModal {
 
 const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
 
-    const allComments = useAppSelector(state => state.comments.comments); 
+    const allComments = useAppSelector(state => state.comments.comments);
     const dispatch = useDispatch();
-    
+
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState<TaskStatus>(task?.status as TaskStatus);
     const [comment, setComment] = useState<string>("");
-    const [newStatus, setNewStatus] = useState<TaskStatus | null>(null); 
+    const [newStatus, setNewStatus] = useState<TaskStatus | null>(null);
     const [comments, setComments] = useState<Array<ITaskComment>>([]);
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,23 +35,32 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
             } else if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 modalActions(TaskModalAction.PREV);
+            } else if (e.key === '1') {
+                e.preventDefault();
+                handleStatusChangeRequest("Open");
+            } else if (e.key === '2') {
+                e.preventDefault();
+                handleStatusChangeRequest("In Progress");
+            } else if (e.key === '3') {
+                e.preventDefault();
+                handleStatusChangeRequest("Closed");
             }
         }
     };
 
-    const handleStatusChangeRequest = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = e.target.value as TaskStatus;
-        setNewStatus(value);  
-        setModalOpen(true);  
+    const handleStatusChangeRequest = (status : string) => {
+        const value = status as TaskStatus;
+        setNewStatus(value);
+        setModalOpen(true);
     };
 
     const handleConfirmChange = () => {
         if (newStatus && task) {
             setSelectedStatus(newStatus);
-            dispatch(changeStatus({task, newStatus}));
+            dispatch(changeStatus({ task, newStatus }));
         }
 
-        setNewStatus(null); 
+        setNewStatus(null);
         setModalOpen(false);
     };
 
@@ -67,7 +76,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
         dispatch(addComments(newComment));
         setComment("");
     }
-    
+
     useEffect(() => {
         // fetch logic here
         const taskComments = allComments.filter((comment) => {
@@ -75,7 +84,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
         })
 
         setComments(taskComments);
-    }, [task.id]) 
+    }, [task.id])
 
     return (
         <Modal onKeyDown={handleKeyDown} isOpen={isOpen} onClose={() => setIsOpen(false)} >
@@ -87,7 +96,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
                     <p><strong>Priority:</strong> {task?.priority}</p>
                     <p><strong>Created at:</strong> {task?.created_at ? formatDateString(task?.created_at as string) : "--"}</p>
                     <p><strong>Updated at:</strong> {task?.updated_at ? formatDateString(task?.updated_at as string) : "--"}</p>
-                    <select onChange={(e) => handleStatusChangeRequest(e)} value={selectedStatus} className='mt-2 rounded-sm bg-[#4e4f50] text-white p-2 max-w-32'>
+                    <select onChange={(e) => handleStatusChangeRequest(e.target.value)} value={selectedStatus} className='mt-2 rounded-sm bg-[#4e4f50] text-white p-2 max-w-32'>
                         <option value={TaskStatus.IN_PROGRESS}>In Progress</option>
                         <option value={TaskStatus.OPEN}>Open</option>
                         <option value={TaskStatus.CLOSED}>Closed</option>

@@ -4,25 +4,32 @@ import { useState } from "react";
 import OpenTemplate from "./open-template";
 import InProgressTemplate from "./inprogress-template";
 import CloseTemplate from "./close-template";
+import { useAppSelector } from "@/store/hooks";
 
 const WorkspaceTemplate = () => {
     const [activeIndex, setActiveIndex] = useState(1);
+    const openTaskCount = useAppSelector(state => state.workspaces.open.length);
+    const closeTaskCount = useAppSelector(state => state.workspaces.close.length);
+    const inProgressTaskCount = useAppSelector(state => state.workspaces.inprogress.length);
 
     const TAB_DATA = [
         {
             value: "OPEN",
             label: "Open",
-            panel: <OpenTemplate/>
+            panel: <OpenTemplate/>,
+            taskCount: openTaskCount
         },
         {
             value: "IN_PROGRESS",
             label: "In Progress",
-            panel: <InProgressTemplate/>
+            panel: <InProgressTemplate/>,
+            taskCount: inProgressTaskCount
         },
         {
             value: "CLOSED",
             label: "Closed",
-            panel: <CloseTemplate />
+            panel: <CloseTemplate />,
+            taskCount: closeTaskCount
         }
     ]
 
@@ -36,8 +43,9 @@ const WorkspaceTemplate = () => {
                 {TAB_DATA.map((tab, idx) => {
                     const isActive = idx === activeIndex;
                     return (
-                        <button onClick={() => setActiveIndex(idx)} key={tab.value} className={cn("text-white px-6 pt-2 font-semibold pb-1", isActive && "bg-fs-background rounded-t-lg")}>
+                        <button onClick={() => setActiveIndex(idx)} key={tab.value} className={cn("text-white px-6 pt-2 font-semibold pb-1 relative", isActive && "bg-fs-background rounded-t-lg")}>
                             {tab.label}
+                            <div className="h-2 w-fit rounded-full absolute top-0 text-white bg-fs-border right-0 p-2 flex items-center justify-center text-[8px]">{tab.taskCount}</div>
                         </button>
                     )
                 })}
