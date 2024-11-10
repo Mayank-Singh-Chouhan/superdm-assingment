@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import workspacesReducer from './slices/workspace-slice';
+import commentsReducer from './slices/comments-slice';
 
 
 export const store = configureStore({
   reducer: {
-    workspaces: workspacesReducer
+    workspaces: workspacesReducer,
+    comments: commentsReducer
   },
 });
 

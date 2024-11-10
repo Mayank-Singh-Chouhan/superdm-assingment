@@ -7,3 +7,9 @@ export interface ITask {
     updated_at: string;
     priority: string;
 }
+
+export interface ITaskComment {
+    task_id: number,
+    content: string;
+    name_of_sender: string;
+}
