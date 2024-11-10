@@ -80,7 +80,7 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
                                         key={colIndex}
                                         className="px-6 py-4 whitespace-nowrap text-white text-[14px] font-normal"
                                         >
-                                        <span className='inline-block h-2 bg-fs-border rounded-2xl w-full'></span>
+                                        <span className='inline-block h-2 bg-fs-border rounded-2xl min-w-14 w-full'></span>
                                         </td>
                                     ))}
                                     </tr>
