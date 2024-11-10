@@ -1,5 +1,4 @@
-import React, { useRef} from 'react';
-import FocusLock from 'react-focus-lock';
+import React, { useEffect, useRef} from 'react';
 
 interface Identifiable { id: number | string; }
 interface Column<T extends Identifiable> {
@@ -33,8 +32,14 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
     }
   };
 
+  useEffect(() => {
+    if (rowRefs.current.length > 0 && rowRefs.current[0]) {
+      rowRefs.current[0].focus();
+    }
+  }, [data]);
+
+
   return (
-    <FocusLock>
       <table className="min-w-full">
         <thead className="sticky backdrop-blur-md rounded-xl bg-fs-border top-0 z-50">
           <tr>
@@ -73,7 +78,6 @@ const Table = <T extends Identifiable>({ columns, data, handleRowClick }: TableP
           ))}
         </tbody>
       </table>
-    </FocusLock>
 
   );
 };

@@ -88,7 +88,7 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
 
         setSelectedStatus(task.status as TaskStatus);
         setComments(taskComments);
-    }, [task.id, selectedStatus])
+    }, [task.id])
 
     return (
         <Modal onKeyDown={handleKeyDown} isOpen={isOpen} onClose={() => setIsOpen(false)} >
