@@ -36,13 +36,13 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
                 e.preventDefault();
                 modalActions(TaskModalAction.PREV);
             } else if (e.key === '1') {
-                e.preventDefault();
+                // e.preventDefault();
                 handleStatusChangeRequest("Open");
             } else if (e.key === '2') {
-                e.preventDefault();
+                // e.preventDefault();
                 handleStatusChangeRequest("In Progress");
             } else if (e.key === '3') {
-                e.preventDefault();
+                // e.preventDefault();
                 handleStatusChangeRequest("Closed");
             }
         }
@@ -86,8 +86,9 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
             return comment.task_id === task.id;
         })
 
+        setSelectedStatus(task.status as TaskStatus);
         setComments(taskComments);
-    }, [task.id])
+    }, [task.id, selectedStatus])
 
     return (
         <Modal onKeyDown={handleKeyDown} isOpen={isOpen} onClose={() => setIsOpen(false)} >

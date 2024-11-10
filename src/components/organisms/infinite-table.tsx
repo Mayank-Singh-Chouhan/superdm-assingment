@@ -49,11 +49,9 @@ const InfiniteTable = <T,>({ queryKey, data, handleRowClick }: IInfiniteTable<T>
 
     // Whenever the Intersection Occurs Fetch new Data
     useEffect(() => {
-
         if (inView) {
             fetchNextPage()
         }
-
     }, [fetchNextPage, inView])
 
     useEffect(() => {

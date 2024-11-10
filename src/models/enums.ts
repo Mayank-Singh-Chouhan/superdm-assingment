@@ -8,3 +8,8 @@ export enum TaskStatus {
     CLOSED = "Closed",
     IN_PROGRESS = "In Progress"
 }
+
+export enum SortType {
+    CREATED_DATE = "Created Date",
+    UPDATED_DATE = "Updated Date",
+}
