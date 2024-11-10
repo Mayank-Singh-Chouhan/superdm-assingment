@@ -38,7 +38,7 @@ export default function Modal({ isOpen, onClose, children, onKeyDown }: ModalPro
       className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
       <FocusLock>
-        <div className="bg-fs-border backdrop-blur-lg relative p-8 rounded-xl shadow-lg min-w-[32rem] max-w-full overflow-y-auto">
+        <div className="bg-fs-border backdrop-blur-lg relative p-8 rounded-xl shadow-lg w-96 lg:min-w-[32rem] lg:max-w-full overflow-y-auto">
           {children}
           <button
             onClick={onClose}

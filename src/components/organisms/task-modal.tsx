@@ -26,8 +26,6 @@ const TaskModal = ({ isOpen, setIsOpen, task, modalActions }: ITaskModal) => {
     const [comment, setComment] = useState<string>("");
     const [newStatus, setNewStatus] = useState<TaskStatus | null>(null); 
     const [comments, setComments] = useState<Array<ITaskComment>>([]);
-    
-
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (!isModalOpen) {
